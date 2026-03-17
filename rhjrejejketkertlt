@@ -1,0 +1,26 @@
+explication du code :
+explications dans l’ordre du programme 
+import random pour avoir de l’aléatoire dans le choix des atomes
+def cree_molecule est la fonction dans laquelle on va assembler les atomes pour former la molécule. Cette fonction rand en paramètres atome (le dictionnaire ligne 3).
+molecule = [] créé u tableau dans lequel il y aura les atomes qui composent la molécule.
+atome_base = random.choice(list(atome2.keys())) créé la variable atome_base et choisis un atome aléatoire dans le dictionnaire atome2 (qui exclue l’hydrogène alors seul atome à ne pas pouvoir faire 2 liaisons ou plus).
+molecule.append([atome_base, atome2[atome_base][0]]) ajoute atome_base dans molecule et initialise son nombre de liaisons disponibles.
+liaison_disponible = True permet d’activer la boucle while.
+listeAtomes = listeAtomesCrea(atome) crée une liste d’atomes qui servira pour les tirages aléatoires.
+while liaison_disponible == True: est la boucle qui va créer la molécule, elle continuera à ajouter des atomes tant qu’il y aura des liaisons disponibles.	atome_choisi = random.choice(listeAtomes) créé la variable atome_choisi et choisis un atome aléatoire dans listeAtome 
+molecule.append([atome_choisi, atome[atome_choisi][0]-1]) ajoute à molecule un atome choisi (atome_choisi) avec un nombre de liaisons disponibles égal à sa valence moins 1, on considère qu’il utilise déjà une liaison (pour se connecter à la molécule).
+indice = calculIndice(molecule, indice) appelle la fonction calculIndice pour trouver le prochain indice dans molecule correspondant à un atome ayant encore des liaisons disponibles. Elle met ensuite à jour la variable indice avec cette nouvelle position.
+if atome[atome_choisi][0] >= 2:
+            molecule[indice][1] += -1
+            indice += 1
+        else:
+            molecule[indice][1] += -1
+                
+            
+        if atomeDispo(molecule) == 0:
+            liaison_disponible = False
+
+La condition if atome[atome_choisi][0] >= 2 vérifie si l’atome choisi peut faire au moins 2 liaisons. Dans ce cas, on enlève une liaison disponible à l’atome courant (on crée une liaison) et on passe à l’atome suivant (indice += 1).
+else: molecule[indice][1] += -1 sinon on enlève juste une liaison disponible sans changer d’indice.
+if atomeDispo(molecule) == 0: liaison_disponible = False enfin, if atomeDispo(molecule) == 0 vérifie s’il ne reste plus aucune liaison possible dans toute la molécule : si c’est le cas, on arrête la boucle (liaison_disponible = False).
+
