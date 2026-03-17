@@ -1,0 +1,94 @@
+import random
+import pygame
+
+pygame.init()
+
+largeur= 1300
+hauteur = 700
+fenetre = pygame.display.set_mode((largeur, hauteur))
+pygame.display.set_caption(" caca")
+
+fin = False
+while fin == False:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            fin = True
+            pygame.quit()
+            
+fond = (207, 179, 56)
+
+imageclasse = pygame.image.load("img/classe.jpg")
+imageclasse = pygame.transform.scale(imageclasse, (largeur, hauteur))
+fenetre.surface.blit(imageclasse, (0, 0))
+pygame.surface.fill(fond)
+pygame.surface.flip()
+
+atome = {"H": (1, False), "O": (2, True), "N": (3, True), "C": (4, True)}
+atome2 = {"O": (2, True), "N": (3, True), "C": (4, True)}
+
+
+def atomeDispo(molecule):
+    nb = 0
+    for i in range (len(molecule)):
+        nb += molecule[i][1]
+    
+    return nb
+
+def listeAtomesCrea(atome):
+    liste = []
+    
+    for cle in atome.keys():
+        if cle == "H":
+            nb = 10
+        elif cle == "O":
+            nb = 2
+        else:
+            nb = 1
+        for i in range(nb):
+            liste.append(cle)
+            
+    return liste
+
+def calculIndice(molecule, indiceCourant):
+    estPasse = False
+    
+    while molecule[indiceCourant][1] == 0:
+        indiceCourant += 1
+        
+        if indiceCourant >= len(molecule) and estPasse == False:
+            estPasse = True
+            indiceCourant = 0
+        elif estPasse == True and indiceCourant >= len(molecule):
+            assert False, "erreur sur l'indice"
+        
+    return indiceCourant
+
+def cree_molecule(atome):
+    molecule = []
+    indice = 0
+    
+    atome_base = random.choice(list(atome2.keys()))
+    molecule.append([atome_base, atome2[atome_base][0]])
+    liaison_disponible = True
+    
+    listeAtomes = listeAtomesCrea(atome)
+
+    while liaison_disponible == True:
+        atome_choisi = random.choice(listeAtomes)
+        molecule.append([atome_choisi, atome[atome_choisi][0]-1])
+        indice = calculIndice(molecule, indice)
+        
+        if atome[atome_choisi][0] >= 2:
+            molecule[indice][1] += -1
+            indice += 1
+        else:
+            molecule[indice][1] += -1
+                
+            
+        if atomeDispo(molecule) == 0:
+            liaison_disponible = False
+            
+        print(molecule)
+    return molecule
+
+print(cree_molecule(atome))
