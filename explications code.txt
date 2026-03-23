@@ -1,0 +1,19 @@
+Quoi : pygame.draw.circle()
+Pourquoi : afficher chaque atome sous forme de cercle coloré dans la fenêtre.
+Pourquoi pas sans : avec ce qu’on avait vu, on savait afficher du texte et des images, mais pas dessiner directement des formes qui changent selon la molécule générée.
+Source : documentation officielle pygame.draw
+
+Quoi : pygame.draw.line()
+Pourquoi : afficher les liaisons entre les atomes.
+Pourquoi pas sans : une image fixe ne suffisait pas, car la molécule change à chaque génération aléatoire.
+Source : documentation officielle pygame.draw
+
+Quoi : fenetre.get_size()
+Pourquoi : récupérer la taille actuelle de la fenêtre pour adapter l’image de fond correctement.
+Pourquoi pas sans : sans ça, le fond pouvait ne pas correspondre exactement à la fenêtre affichée.
+Source : documentation officielle pygame.Surface.get_size
+
+Quoi : str.isdigit()
+Pourquoi : lire les nombres dans une formule brute comme C2H15N11O2.
+Pourquoi pas sans : il fallait distinguer automatiquement les lettres des chiffres pour compter correctement les atomes.
+Source : documentation officielle Python str.isdigit
